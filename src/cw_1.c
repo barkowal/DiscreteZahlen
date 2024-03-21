@@ -44,7 +44,7 @@ int nwd(int a, int b){
 	return 0;
 }
 
-int ext_nwd(int a, int b){
+int ext_nwd( int a, int b ){
 	int rest;
 	int divided;
 	int x = 1;
