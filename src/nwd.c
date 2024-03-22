@@ -10,6 +10,11 @@
 #define GREEN 2
 #define BLUE 1
  
+
+struct factor{
+	int nwd;
+	int nww;
+};
  
 int isPrime(int number)
 {
@@ -36,14 +41,15 @@ int getNextPrime(int prevprime)
 }
 
 
-int nwd(int a, int b)
+struct factor calculate(int a, int b)
 {
 	int alfa = 0;
 	int beta = 0;
 	int prime = 1;
-	int i;
-	int j;
-	int result = 1;
+	int i, j;
+	struct factor result;
+	result.nwd = result.nww = 1;
+
 	for(i = j = 1; i<= a || j <= b; i = j = prime)
 	{
 		alfa = 0;
@@ -57,7 +63,7 @@ int nwd(int a, int b)
 				alfa ++;
 			}
 			else
-			break;
+				break;
 		}
 
 		while ( b > 1 )
@@ -68,10 +74,11 @@ int nwd(int a, int b)
 				beta++;
 			}
 			else
-			break;
+				break;
 		}
 
-		result *= pow(prime,fmin(alfa,beta));
+		result.nwd *= pow(prime,fmin(alfa,beta));
+		result.nww *= pow(prime,fmax(alfa,beta));
 
 	
 		if (alfa)
@@ -80,47 +87,13 @@ int nwd(int a, int b)
 			printf("%d[%d]\n", prime, beta);
 	}
 	return result;
-	
 }
  
 int main(void)
 {
 
-	int i;
-	/*
-	  for(i=2; i <100; i++)
-	    printf("%d -> %d\n", i, isPrime(i));
-	  */
-
-	/*
-	  for(i = 2; i<100; i++)
-	    if (isPrime(i))
-	      printf("%d -> %d\n\a", i, getNextPrime(i));
-	  */
-
-	int number = 100;
-	int counter;
-	int prime;
-
-	printf("NWD: %d",nwd(100,101));
-
-	// for(i = 1; i<= number; i = prime)
-	// {
-	// 	counter = 0;
-	// 	prime = getNextPrime(i);
-	// 	while ( number > 1 )
-	// 	{
-	// 		if (number % prime == 0)
-	// 		{
-	// 			number /= prime;
-	// 			counter ++;
-	// 		}
-	// 		else
-	// 		break;
-	// 	}
-	// 	if (counter)
-	// 		printf("%d[%d]\n", prime, counter);
-	// }
+	printf("NWD: %d \n",calculate(100,101).nwd);
+	printf("NWW: %d \n",calculate(100,101).nww);
 
 	getchar();
 	return EXIT_OK;
