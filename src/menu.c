@@ -1,25 +1,35 @@
-#include<stdio.h>
+#include "menu.h"
 
-#define EXIT_OK 0
+struct Menu* createMenu(struct Menu* menu, int size, char* options[]){
+	menu = malloc(sizeof(*menu));
 
-void showTitle();
-int showMenu();
+	int i;
+	for(i=0;i<size;i++){
+		menu->options[i] = malloc(sizeof(char) * strlen(options[i]));
+	}
 
-int main(){
+	menu->size = size;
+	menu->currentOption = 0;
 
-	showTitle();
+	for(i=0; i<size; i++)
+	 	strcpy(menu->options[i], options[i]);
 
-
-	return EXIT_OK;
+	return menu;
 }
 
-
-void showTitle(){
-	printf("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	printf("'''|==''''|'''''|''''''''''|'''''|---'''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	printf("'''|''\\''|'''''|'''/--\\'''|''''|'''\\'''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	printf("'''|'''\\'|'''''|''/''''\\''|''''|'''|'''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	printf("'''|''''\\|'''''|_/''''''\\_|''''|__/''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-	printf("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n");
-
+int showMenu(struct Menu* menu){
+	printf("Wybierz co chcesz zrobic\n");
+	int i;
+	for(i=0; i<menu->size; i++){
+		printf("%s \n",menu->options[i]);
+	}
+	return menu->size;
 }
+
+void showMenuItem(struct Menu* menu, int option){
+	if(option < menu->size){
+		printf("%s", menu->options[option]);
+		menu->currentOption = option;
+	}
+}
+
