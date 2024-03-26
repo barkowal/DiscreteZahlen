@@ -6,38 +6,28 @@
 #include <termios.h>
 #include "utils.h"
 #include "menu.h"
+#include "scenes.h"
+
+#include "mainScene.h"
+#include "nwdScene.h"
 
 #define EXIT_OK 0
 
 
 
-#ifdef _WIN32
-
-#endif
-
-#ifdef linux
-#define clearScreen() printf("\033[H\033[J")
-#define moveUp(value) printf("\033[%dA",value)
-#define moveDown(value) printf("\033[%dB",value)
-#define moveRight(value) printf("\033[%dC",value)
-#define moveLeft(value) printf("\033[%dD",value)
-#define moveCursor(x, y) printf("\033[%d;%dH", x, y)
-#define colorLine(fg,bg) printf("\033[%d;%dm",fg,bg)
-#endif
-
 
 
 int gui();
 
-void showTitle();
+void showTitle(int sceneNumber);
+void printTitle( char* title, int len);
 
-void refreshScreen(struct Menu* menu);
+void refreshScreen();
 
-struct Menu* nwdMenu();
+void changeLine(char keyPress, int* option);
 
-void changeLine(struct Menu* menu, char keyPress, int* option);
-
-
+void changeScene(int* option);
+int whatScene(int option);
 
 
 

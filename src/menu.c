@@ -1,9 +1,15 @@
 #include "menu.h"
 
 struct Menu* createMenu(struct Menu* menu, int size, char* options[]){
-	menu = malloc(sizeof(*menu));
 
 	int i;
+	int arrayLen = 0;
+	for(i=0;i<size;i++){
+		 arrayLen += (sizeof(char) * strlen(options[i]));
+	}
+
+	menu = malloc(sizeof(*menu) + arrayLen);
+
 	for(i=0;i<size;i++){
 		menu->options[i] = malloc(sizeof(char) * strlen(options[i]));
 	}
@@ -33,3 +39,12 @@ void showMenuItem(struct Menu* menu, int option){
 	}
 }
 
+
+void destroyMenu(struct Menu** menu){
+	int i;
+	for(i=0 ;i<(*menu)->size; i++)
+		free( (	(*menu)->options[i] ));
+
+	free(*menu);
+	*menu = NULL;
+}

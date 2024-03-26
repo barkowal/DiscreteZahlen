@@ -1,21 +1,6 @@
-#include <stdio.h>
-#include <math.h>
- 
-#define TRUE 1
-#define FALSE 0
-#define EXIT_OK 0
- 
-#define RED 12
-#define WHITE 15
-#define GREEN 2
-#define BLUE 1
- 
+#include "nwd_nww.h"
 
-struct factor{
-	int nwd;
-	int nww;
-};
- 
+
 int isPrime(int number)
 {
 	int result = TRUE;
@@ -40,8 +25,17 @@ int getNextPrime(int prevprime)
 	return i;
 }
 
+char* appendString(char* str1, char* str2){
+	char* newStr;
+	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
+		newStr[0] = '\0';
+		strcat(newStr, str1);
+		strcat(newStr, str2);
+	}
+	return newStr;
+}
 
-struct factor calculate(int a, int b)
+struct factor calculateNWD_NWW(int a, int b)
 {
 	int alfa = 0;
 	int beta = 0;
@@ -49,6 +43,7 @@ struct factor calculate(int a, int b)
 	int i, j;
 	struct factor result;
 	result.nwd = result.nww = 1;
+	char* factoring = "";
 
 	for(i = j = 1; i<= a || j <= b; i = j = prime)
 	{
@@ -81,20 +76,20 @@ struct factor calculate(int a, int b)
 		result.nww *= pow(prime,fmax(alfa,beta));
 
 	
-		if (alfa)
-			printf("%d[%d]\n", prime, alfa);
-		if (beta)
-			printf("%d[%d]\n", prime, beta);
+		if (alfa){
+			int len = snprintf(NULL, 0, "%d[%d] ", prime, alfa);
+			char* temp = malloc( len + 1 );
+			snprintf(temp, len, "%d[%d] ", prime, alfa);
+			factoring = appendString(factoring, temp);
+		}
+		if (beta){
+			int len = snprintf(NULL, 0, "%d[%d] ", prime, alfa);
+			char* temp = malloc( len + 1 );
+			snprintf(temp, len, "%d[%d] ", prime, alfa);
+			factoring = appendString(factoring, temp);
+		}
+		printf("%s",factoring);
 	}
 	return result;
 }
  
-int main(void)
-{
-
-	printf("NWD: %d \n",calculate(100,101).nwd);
-	printf("NWW: %d \n",calculate(100,101).nww);
-
-	getchar();
-	return EXIT_OK;
-}

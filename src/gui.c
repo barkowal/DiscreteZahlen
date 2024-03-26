@@ -1,27 +1,9 @@
 #include "gui.h"
 
 int win_row = 0;
+int currentScene = MAIN_SCENE;
+struct Menu* menu;
 
-char menuString[] = " \
-/$$      /$$ /$$$$$$$$ /$$   /$$ /$$   /$$\n\
-| $$$    /$$$| $$_____/| $$$ | $$| $$  | $$\n\
-| $$$$  /$$$$| $$      | $$$$| $$| $$  | $$\n\
-| $$ $$/$$ $$| $$$$$   | $$ $$ $$| $$  | $$\n\
-| $$  $$$| $$| $$__/   | $$  $$$$| $$  | $$\n\
-| $$\\  $ | $$| $$      | $$\\  $$$| $$  | $$\n\
-| $$ \\/  | $$| $$$$$$$$| $$ \\  $$|  $$$$$$/\n\
-|__/     |__/|________/|__/  \\__/ \\______/ \n";
-
-char menuNWD[] = " \
-/$$   /$$ /$$      /$$ /$$$$$$$ \n\
-| $$$ | $$| $$  /$ | $$| $$__  $$ \n\
-| $$$$| $$| $$ /$$$| $$| $$  \\ $$ \n\
-| $$ $$ $$| $$/$$ $$ $$| $$  | $$ \n\
-| $$  $$$$| $$$$_  $$$$| $$  | $$ \n\
-| $$\\  $$$| $$$/ \\  $$$| $$  | $$ \n\
-| $$ \\  $$| $$/   \\  $$| $$$$$$$/ \n\
-|__/  \\__/|__/     \\__/|_______/ \n\
-";
 
 char menuNWW[] = " \
 /$$   /$$ /$$      /$$ /$$      /$$ \n\
@@ -35,38 +17,167 @@ char menuNWW[] = " \
 ";
 
  	
-
 int gui(){
-	struct Menu* menu = nwdMenu();
+	menu = mainMenu();
 	char key = ' ';
 	int option = 0;
 
-	refreshScreen(menu);
+	refreshScreen();
 
-	while((key = getch()) != 'x'){
-		changeLine(menu, key, &option);
+	changeLine(key, &option);
+	while(currentScene != EXIT){
+		while((key = getch()) != EOF && key != '\n'){
+			changeLine(key, &option);
+		}
+		changeScene(&option);
+
+		refreshScreen();
+		changeLine(key, &option);
 	}
 
-	printf("\nSELECTED OPTION: %d\n",option);
 
+	// showInput();
+	// int input;
+	// if(scanf("%d", &input) != 1){
+	// 	moveUp(2);
+	// 	showInput();
+	// 	printf("WRONG INPUT");
+	// 	while(getchar() != '\n');
+	// }
+	// printf("OK THIS TIME");
+	//
+	// scanf("%d", &input);
+	clearScreen();
 	return EXIT_OK;
 }
 
 
-void showTitle(){
-	printf("%s",menuString);
-	printf("%s",menuNWD);
-	printf("%s",menuNWW);
+
+//TODO polymorphism instead of that blasphemy
+int whatScene(int option){
+	int scene = 0;
+
+	switch(currentScene){
+		case MAIN_SCENE: 
+					scene = mainWhatScene(option);
+					break;
+		case NWD_SCENE:
+					scene = nwdWhatScene(option);
+					break;
+		case NWW_SCENE:
+					scene = 0;
+					break;
+		case EXIT:
+					scene = EXIT;
+					break;
+	}
+
+	return scene;
 }
 
 
-void refreshScreen(struct Menu* menu){
+void changeScene(int* option){
+	int scene = whatScene(*option);
+	destroyMenu(&menu);
+
+	switch(scene){
+		case MAIN_SCENE: 
+					menu = mainMenu();
+					break;
+		case NWD_SCENE:
+					menu = nwdMenu();
+					break;
+		case NWW_SCENE:
+					menu = mainMenu();
+					break;
+		case EXIT:
+					menu = mainMenu();
+					break;
+	}
+
+	currentScene = scene;
+
+}
+
+void showTitle( int sceneNB ){
+	switch(sceneNB){
+		case MAIN_SCENE:
+			printTitle( mainGetTitle(), strlen(mainGetTitle()) );
+		break;
+		case NWD_SCENE:
+			printTitle( nwdGetTitle(), strlen(nwdGetTitle()) );
+		break;
+		case NWW_SCENE:
+			printf("%s",menuNWW);
+		break;
+	}
+}
+
+// ┌────────────┐	
+// │            │
+// └────────────┘
+// void showInput(){
+// 	struct winsize window = getWindowSize();
+// 	int width = window.ws_col * 0.8;
+// 	int i;
+//
+// 	printf("┌\n");
+// 	printf("│\n");
+// 	printf("└");
+// 	moveUp(2);
+//
+// 	for(i=0; i<width; i++){
+// 		printf("─");
+// 		moveDown(1);
+// 		moveLeft(1);
+// 		printf(" ");
+// 		moveDown(1);
+// 		moveLeft(1);
+// 		printf("─");
+// 		moveUp(2);
+// 	}
+//
+// 	printf("┐");
+// 	moveDown(1);
+// 	moveLeft(1);
+// 	printf("│");
+// 	moveDown(1);
+// 	moveLeft(1);
+// 	printf("┘");
+//
+// 	moveUp(1);
+// 	moveLeft(width);
+// }
+
+
+
+
+void printTitle(char* title, int len){
+	struct winsize window = getWindowSize();
+	int textWidth = 0;
+
+	while(title[textWidth] != '\n')
+		textWidth++;
+	
+	int center = ((int)(window.ws_col * 0.5) - textWidth/2);
+	moveRight(center);
+
+	int i;
+	for(i=0; i<len; i++){
+		printf("%c",title[i]);
+		if(title[i] == '\n')
+			moveRight(center);
+	}
+}
+
+
+void refreshScreen(){
 	struct winsize window = getWindowSize();
 	colorLine(37,40);
  	clearScreen();
 
-	showTitle();
-	win_row = 0.8 * window.ws_row;
+	showTitle(currentScene);
+	win_row = 0.4 * window.ws_row;
 	moveCursor(win_row, 0);
 
 	showMenu(menu);
@@ -75,28 +186,24 @@ void refreshScreen(struct Menu* menu){
 }
 
 
-struct Menu* nwdMenu(){
-	const int size = 3;
-	char* options[3] = {
-		"( )Policz NWD",
-		"( )Policz NWW",
-		"( )Ustawienia"
-	};
-	struct Menu* menu = createMenu(menu, size, options);
-	return menu;
-}
+void changeLine(char keyPress, int* option){
 
-
-void changeLine(struct Menu* menu, char keyPress, int* option){
-
-	refreshScreen(menu);
+	refreshScreen();
 	int menuSize = menu->size;
 	int selectedOption = *option; 
 
 	switch(keyPress){
-	case 'k':	selectedOption--; 
+	case 'k':			
+				selectedOption--; 
 				break;
-	case 'j':	selectedOption++;
+	case UP_ARROW:
+				selectedOption--; 
+				break;
+	case 'j':	
+				selectedOption++;
+				break;
+	case DOWN_ARROW:
+				selectedOption++;
 				break;
 	}
 

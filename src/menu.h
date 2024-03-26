@@ -13,5 +13,6 @@ struct Menu{
 struct Menu* createMenu(struct Menu* menu, int size, char* options[]);	
 int showMenu(struct Menu*);
 void showMenuItem(struct Menu*, int option);
+void destroyMenu(struct Menu** menu);
 
 #endif
