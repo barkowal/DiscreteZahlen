@@ -26,7 +26,10 @@ int gui(){
 
 	changeLine(key, &option);
 	while(currentScene != EXIT){
-		while((key = getch()) != EOF && key != '\n'){
+		//while((key = getch()) != EOF || (key != '\n' || key != '\r')){
+		while((key = getch()) != '\r'){
+		//	if(key != '\n' || key != '\r')
+		//		break;
 			changeLine(key, &option);
 		}
 		changeScene(&option);

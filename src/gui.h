@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <termios.h>
+
 #include "utils.h"
 #include "menu.h"
 #include "scenes/scenes.h"
@@ -14,8 +14,13 @@
 
 #define EXIT_OK 0
 
+/*
+#ifdef linux
 
+#include <termios.h>
 
+#endif
+*/
 
 
 int gui();
