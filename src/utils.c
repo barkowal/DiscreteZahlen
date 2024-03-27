@@ -60,3 +60,14 @@ struct winsize getWindowSize(){
 
 }
 
+
+char *appendString(char* str1, char* str2){
+	char* newStr;
+	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
+		newStr[0] = '\0';
+		strcat(newStr, str1);
+		strcat(newStr, str2);
+	}
+
+	return newStr;
+}

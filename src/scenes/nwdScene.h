@@ -1,10 +1,10 @@
 #ifndef nwdScene_h
 #define nwdScene_h
 
-#include "menu.h"
-#include "utils.h"
+#include "../menu.h"
+#include "../utils.h"
 #include "scenes.h"
-#include "nwd_nww.h"
+#include "../math/nwd_nww.h"
 
 char* nwdGetTitle();
 struct Menu* nwdMenu();

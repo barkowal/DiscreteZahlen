@@ -20,8 +20,8 @@ char* mainGetTitle(){
 struct Menu* mainMenu(){
 	const int size = 3;
 	char* options[3] = {
-		"( )POLICZ NWD",
-		"( )POLICZ NWW",
+		"( )POLICZ NWD ORAZ NWW",
+		"( )POLICZ NWD ROZSZERZONYM ALGORYTMEM EUKLIDESA",
 		"( )WYJDZ"
 	};
 	struct Menu* menu = createMenu(menu, size, options);
@@ -32,7 +32,7 @@ struct Menu* mainMenu(){
 int mainWhatScene(int option){
 	switch(option){
 		case 0:	return NWD_SCENE;
-		case 1: return NWW_SCENE;
+		case 1: return EXTENDEDEUC_SCENE;
 		case 2: return EXIT;
 		default: return EXIT;
 	}

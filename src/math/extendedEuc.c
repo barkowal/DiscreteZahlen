@@ -1,47 +1,41 @@
-#include <stdio.h>
-#include <math.h>
+#include "extendedEuc.h"
 
-int div(int, int); 
-int mod(int, int);
-int nwd(int, int);
-int ext_nwd(int, int);
-int ext_nwd_table(int ,int);
-int nwd_rec(int, int);
+// int main(){
+// 	int a = 196;
+// 	int b = 180;
+// 	printf("DIV: %d \n", divide(a, b));
+// 	printf("MOD: %d \n", mod(a, b));
+// 	nwd(a, b);
+// 	ext_nwd(a,b);
+// 	ext_nwd_table(a,b);
+// 	printf("---------------\n");
+// 	printf("nwd_rec: %d \n", nwd_rec(a, b));
+//
+// 	return 0;
+// }
+//
+//
 
-int main(){
-	int a = 196;
-	int b = 180;
-	printf("DIV: %d \n", div(a, b));
-	printf("MOD: %d \n", mod(a, b));
-	nwd(a, b);
-	ext_nwd(a,b);
-	ext_nwd_table(a,b);
-	printf("---------------\n");
-	printf("nwd_rec: %d \n", nwd_rec(a, b));
-
-	return 0;
-}
-
-int div(int a, int b){
+int divide(int a, int b){
 	int result =floorf( (double)a/b );
 	return result;
 }
 
 int mod(int a, int b){
-	int result = a - div(a,b) * b;
+	int result = a - divide(a,b) * b;
 	return result;
 }
 
 int nwd(int a, int b){
 	int rest;
-	printf("NWD( %d, %d ) = ", a,b);
+	// printf("NWD( %d, %d ) = ", a,b);
 	while(b != 0){
 		rest = a%b;
 		a = b;
 		b = rest;
 	}
-	printf("%d \n",a);
-	return 0;
+	// printf("%d \n",a);
+	return a;
 }
 
 int ext_nwd( int a, int b ){
@@ -56,7 +50,7 @@ int ext_nwd( int a, int b ){
 	printf("Extended NWD( %d, %d ) = ", a,b);
 	while(b != 0){
 		rest = a%b;
-		divided = div(a,b);
+		divided = divide(a,b);
 		a = b;
 		b = rest;
 		sp = x - divided * s;
@@ -89,7 +83,7 @@ int ext_nwd_table(int a, int b){
 	printf("%10d | %10d | %10d | %10d | %10d | \n", a,x,b,y,rest);
 	while(b != 0){
 		rest = a%b;
-		divided = div(a,b);
+		divided = divide(a,b);
 		a = b;
 		b = rest;
 		sp = x - divided * s;

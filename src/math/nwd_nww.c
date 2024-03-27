@@ -25,15 +25,16 @@ int getNextPrime(int prevprime)
 	return i;
 }
 
-char* appendString(char* str1, char* str2){
-	char* newStr;
-	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
-		newStr[0] = '\0';
-		strcat(newStr, str1);
-		strcat(newStr, str2);
-	}
-	return newStr;
-}
+// char* appendString(char* str1, char* str2){
+// 	char* newStr;
+// 	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
+// 		newStr[0] = '\0';
+// 		strcat(newStr, str1);
+// 		strcat(newStr, str2);
+// 	}
+//
+// 	return newStr;
+// }
 
 struct factor calculateNWD_NWW(int a, int b)
 {
@@ -43,7 +44,7 @@ struct factor calculateNWD_NWW(int a, int b)
 	int i, j;
 	struct factor result;
 	result.nwd = result.nww = 1;
-	char* factoring = "";
+	result.sequence = "";
 
 	for(i = j = 1; i<= a || j <= b; i = j = prime)
 	{
@@ -76,19 +77,18 @@ struct factor calculateNWD_NWW(int a, int b)
 		result.nww *= pow(prime,fmax(alfa,beta));
 
 	
-		if (alfa){
-			int len = snprintf(NULL, 0, "%d[%d] ", prime, alfa);
+		if (alfa || beta){
+			int len = snprintf(NULL, 0, " %d[%d] ", prime, alfa);
 			char* temp = malloc( len + 1 );
-			snprintf(temp, len, "%d[%d] ", prime, alfa);
-			factoring = appendString(factoring, temp);
+			char* oldStr = result.sequence;
+
+			snprintf(temp, len, " %d[%d] ", prime, alfa);
+			result.sequence = appendString(oldStr, temp);
+
+			if(strlen(temp) != 0)
+				free(temp);
+
 		}
-		if (beta){
-			int len = snprintf(NULL, 0, "%d[%d] ", prime, alfa);
-			char* temp = malloc( len + 1 );
-			snprintf(temp, len, "%d[%d] ", prime, alfa);
-			factoring = appendString(factoring, temp);
-		}
-		printf("%s",factoring);
 	}
 	return result;
 }

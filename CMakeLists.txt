@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.2)
 project(MD)
 
 
-FILE(GLOB SOURCE_FILES src/*.c)
+FILE(GLOB SOURCE_FILES src/*.c src/scenes/*.c src/math/*.c)
 
 add_executable(main ${SOURCE_FILES} )
 

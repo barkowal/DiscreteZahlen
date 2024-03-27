@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <termios.h>
 #include <sys/ioctl.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 #ifdef _WIN32
@@ -39,5 +41,7 @@
 int getch();
 void showInput();
 struct winsize getWindowSize();
+char *appendString(char* str1, char* str2);
+
 
 #endif

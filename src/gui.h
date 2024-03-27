@@ -6,10 +6,11 @@
 #include <termios.h>
 #include "utils.h"
 #include "menu.h"
-#include "scenes.h"
+#include "scenes/scenes.h"
 
-#include "mainScene.h"
-#include "nwdScene.h"
+#include "scenes/mainScene.h"
+#include "scenes/nwdScene.h"
+#include "scenes/extendedEucScene.h"
 
 #define EXIT_OK 0
 

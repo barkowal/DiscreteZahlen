@@ -56,7 +56,13 @@ void calculateNWD(){
 
 	moveDown(1);
 	showInput();
+	printf("CIAG: %s\n", result.sequence);
+
+	moveDown(1);
+	showInput();
 	printf("NWD: %d, NWW: %d",result.nwd, result.nww);
 	getchar();
 	getchar();
+	if(strlen(result.sequence) != 0)
+		free(result.sequence);
 }

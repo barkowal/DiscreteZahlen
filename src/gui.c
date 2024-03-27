@@ -64,8 +64,8 @@ int whatScene(int option){
 		case NWD_SCENE:
 					scene = nwdWhatScene(option);
 					break;
-		case NWW_SCENE:
-					scene = 0;
+		case EXTENDEDEUC_SCENE:
+					scene = extEucWhatScene(option);
 					break;
 		case EXIT:
 					scene = EXIT;
@@ -87,8 +87,8 @@ void changeScene(int* option){
 		case NWD_SCENE:
 					menu = nwdMenu();
 					break;
-		case NWW_SCENE:
-					menu = mainMenu();
+		case EXTENDEDEUC_SCENE:
+					menu = extEucMenu();
 					break;
 		case EXIT:
 					menu = mainMenu();
@@ -107,8 +107,8 @@ void showTitle( int sceneNB ){
 		case NWD_SCENE:
 			printTitle( nwdGetTitle(), strlen(nwdGetTitle()) );
 		break;
-		case NWW_SCENE:
-			printf("%s",menuNWW);
+		case EXTENDEDEUC_SCENE:
+			printTitle( extEucGetTitle(), strlen(extEucGetTitle()) );
 		break;
 	}
 }
@@ -177,7 +177,7 @@ void refreshScreen(){
  	clearScreen();
 
 	showTitle(currentScene);
-	win_row = 0.4 * window.ws_row;
+	win_row = 0.5 * window.ws_row;
 	moveCursor(win_row, 0);
 
 	showMenu(menu);
