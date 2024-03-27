@@ -20,7 +20,7 @@ char* mainGetTitle(){
 struct Menu* mainMenu(){
 	const int size = 3;
 	char* options[3] = {
-		"( )POLICZ NWD ORAZ NWW",
+		"( )POLICZ NWD ORAZ NWW Z ROZKLADEM NA CZYNNIKI PIERWSZE",
 		"( )POLICZ NWD ROZSZERZONYM ALGORYTMEM EUKLIDESA",
 		"( )WYJDZ"
 	};

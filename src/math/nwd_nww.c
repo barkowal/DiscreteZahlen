@@ -25,16 +25,6 @@ int getNextPrime(int prevprime)
 	return i;
 }
 
-// char* appendString(char* str1, char* str2){
-// 	char* newStr;
-// 	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
-// 		newStr[0] = '\0';
-// 		strcat(newStr, str1);
-// 		strcat(newStr, str2);
-// 	}
-//
-// 	return newStr;
-// }
 
 struct factor calculateNWD_NWW(int a, int b)
 {
@@ -44,7 +34,8 @@ struct factor calculateNWD_NWW(int a, int b)
 	int i, j;
 	struct factor result;
 	result.nwd = result.nww = 1;
-	result.sequence = "";
+	result.nwdSequence = "";
+	result.nwwSequence = "";
 
 	for(i = j = 1; i<= a || j <= b; i = j = prime)
 	{
@@ -78,18 +69,61 @@ struct factor calculateNWD_NWW(int a, int b)
 
 	
 		if (alfa || beta){
-			int len = snprintf(NULL, 0, " %d[%d] ", prime, alfa);
-			char* temp = malloc( len + 1 );
-			char* oldStr = result.sequence;
+			int minim = fmin(alfa,beta);
+			int maxim = fmax(alfa,beta);
+			int nwdLen = snprintf(NULL, 0, " %d^%d ", prime, minim);
+			int nwwLen = snprintf(NULL, 0, " %d^%d ", prime, maxim);
+			char* nwdTemp = malloc( nwdLen + 1 );
+			char* nwwTemp = malloc( nwwLen + 1 );
 
-			snprintf(temp, len, " %d[%d] ", prime, alfa);
-			result.sequence = appendString(oldStr, temp);
+			snprintf(nwdTemp, nwdLen, " %d^%d ", prime, minim);
+			snprintf(nwwTemp, nwwLen, " %d^%d ", prime, maxim);
+			result.nwdSequence = appendString(result.nwdSequence, nwdTemp);
+			result.nwwSequence = appendString(result.nwwSequence, nwwTemp);
 
-			if(strlen(temp) != 0)
-				free(temp);
+			if(strlen(nwdTemp) != 0)
+				free(nwdTemp);
+			if(strlen(nwwTemp) != 0)
+				free(nwwTemp);
 
 		}
 	}
 	return result;
 }
  
+
+char* getFactorization(int a)
+{
+	char* sequence = "";
+	int alfa = 0;
+	int prime = 1;
+	int i;
+	for(i = 1; i<= a; i = prime)
+	{
+		alfa = 0;
+		prime = getNextPrime(i);
+		while ( a > 1 )
+		{
+			if (a % prime == 0)
+			{
+				a /= prime;
+				alfa ++;
+			}
+			else
+				break;
+		}
+
+		if (alfa){
+			int len = snprintf(NULL, 0, " %d^%d ", prime, alfa);
+			char* temp = malloc( len + 1 );
+
+			snprintf(temp, len, " %d^%d ", prime, alfa);
+			sequence = appendString(sequence, temp);
+
+			if(strlen(temp) != 0)
+				free(temp);
+		}
+	}
+
+	return sequence;
+}

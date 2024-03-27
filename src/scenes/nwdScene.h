@@ -10,5 +10,6 @@ char* nwdGetTitle();
 struct Menu* nwdMenu();
 int nwdWhatScene(int option);
 void calculateNWD();
+void showFactorization();
 
 #endif

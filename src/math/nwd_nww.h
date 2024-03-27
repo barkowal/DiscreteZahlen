@@ -19,12 +19,14 @@
 struct factor{
 	int nwd;
 	int nww;
-	char* sequence;
+	char* nwdSequence;
+	char* nwwSequence;
 };
 
 
 int isPrime(int number);
 int getNextPrime(int prevprime);
 struct factor calculateNWD_NWW(int a, int b);
+char* getFactorization(int a);
 
 #endif

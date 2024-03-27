@@ -5,17 +5,6 @@ int currentScene = MAIN_SCENE;
 struct Menu* menu;
 
 
-char menuNWW[] = " \
-/$$   /$$ /$$      /$$ /$$      /$$ \n\
-| $$$ | $$| $$  /$ | $$| $$  /$ | $$ \n\
-| $$$$| $$| $$ /$$$| $$| $$ /$$$| $$ \n\
-| $$ $$ $$| $$/$$ $$ $$| $$/$$ $$ $$ \n\
-| $$  $$$$| $$$$_  $$$$| $$$$_  $$$$ \n\
-| $$\\  $$$| $$$/ \\  $$$| $$$/ \\  $$$ \n\
-| $$ \\  $$| $$/   \\  $$| $$/   \\  $$ \n\
-|__/  \\__/|__/     \\__/|__/     \\__/ \n\
-";
-
  	
 int gui(){
 	menu = mainMenu();
@@ -26,10 +15,7 @@ int gui(){
 
 	changeLine(key, &option);
 	while(currentScene != EXIT){
-		//while((key = getch()) != EOF || (key != '\n' || key != '\r')){
-		while((key = getch()) != '\r'){
-		//	if(key != '\n' || key != '\r')
-		//		break;
+		while((key = getch()) != '\r' && (key != EOF && key != '\n' )){
 			changeLine(key, &option);
 		}
 		changeScene(&option);
@@ -39,17 +25,6 @@ int gui(){
 	}
 
 
-	// showInput();
-	// int input;
-	// if(scanf("%d", &input) != 1){
-	// 	moveUp(2);
-	// 	showInput();
-	// 	printf("WRONG INPUT");
-	// 	while(getchar() != '\n');
-	// }
-	// printf("OK THIS TIME");
-	//
-	// scanf("%d", &input);
 	clearScreen();
 	return EXIT_OK;
 }
@@ -115,44 +90,6 @@ void showTitle( int sceneNB ){
 		break;
 	}
 }
-
-// ┌────────────┐	
-// │            │
-// └────────────┘
-// void showInput(){
-// 	struct winsize window = getWindowSize();
-// 	int width = window.ws_col * 0.8;
-// 	int i;
-//
-// 	printf("┌\n");
-// 	printf("│\n");
-// 	printf("└");
-// 	moveUp(2);
-//
-// 	for(i=0; i<width; i++){
-// 		printf("─");
-// 		moveDown(1);
-// 		moveLeft(1);
-// 		printf(" ");
-// 		moveDown(1);
-// 		moveLeft(1);
-// 		printf("─");
-// 		moveUp(2);
-// 	}
-//
-// 	printf("┐");
-// 	moveDown(1);
-// 	moveLeft(1);
-// 	printf("│");
-// 	moveDown(1);
-// 	moveLeft(1);
-// 	printf("┘");
-//
-// 	moveUp(1);
-// 	moveLeft(width);
-// }
-
-
 
 
 void printTitle(char* title, int len){

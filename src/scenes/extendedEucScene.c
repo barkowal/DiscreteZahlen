@@ -40,9 +40,9 @@ int extEucWhatScene(int option){
 
 
 void calculateExtEuc(){
-	int a = 0;
-	int b = 0;
-	// struct factor result;
+	int a, b;
+	struct eucResult result;
+
 	moveUp(3);
 	printf("\nWpisz pierwsza liczbe:\n");
 	showInput();
@@ -52,22 +52,12 @@ void calculateExtEuc(){
 	showInput();
 	scanf("%d", &b);
 
-	// result = calculateNWD_NWW(a,b);
-	
-	int result = nwd(a , b);
+	moveDown(1);
+	result = ext_nwd_table(a, b);
 
 	moveDown(1);
 	showInput();
-	printf("EXTENDED EUC: %d", result);
+	printf("NWD = %d = %d * %d + %d * %d", result.nwd, result.x, a, result.y, b);
 	getchar();
 	getchar();
-	// printf("CIAG: %s\n", result.sequence);
-
-	// moveDown(1);
-	// showInput();
-	// printf("NWD: %d, NWW: %d",result.nwd, result.nww);
-	// getchar();
-	// getchar();
-	// if(strlen(result.sequence) != 0)
-	// 	free(result.sequence);
 }
