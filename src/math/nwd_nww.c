@@ -34,8 +34,8 @@ struct factor calculateNWD_NWW(int a, int b)
 	int i, j;
 	struct factor result;
 	result.nwd = result.nww = 1;
-	result.nwdSequence = "";
-	result.nwwSequence = "";
+	result.nwdSequence = calloc(1,sizeof(char));
+	result.nwwSequence = calloc(1,sizeof(char));
 
 	for(i = j = 1; i<= a || j <= b; i = j = prime)
 	{
@@ -81,11 +81,6 @@ struct factor calculateNWD_NWW(int a, int b)
 			result.nwdSequence = appendString(result.nwdSequence, nwdTemp);
 			result.nwwSequence = appendString(result.nwwSequence, nwwTemp);
 
-			if(strlen(nwdTemp) != 0)
-				free(nwdTemp);
-			if(strlen(nwwTemp) != 0)
-				free(nwwTemp);
-
 		}
 	}
 	return result;
@@ -94,7 +89,7 @@ struct factor calculateNWD_NWW(int a, int b)
 
 char* getFactorization(int a)
 {
-	char* sequence = "";
+	char* sequence = calloc(1,sizeof(char));
 	int alfa = 0;
 	int prime = 1;
 	int i;
@@ -120,8 +115,6 @@ char* getFactorization(int a)
 			snprintf(temp, len, " %d^%d ", prime, alfa);
 			sequence = appendString(sequence, temp);
 
-			if(strlen(temp) != 0)
-				free(temp);
 		}
 	}
 

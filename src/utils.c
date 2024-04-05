@@ -126,11 +126,14 @@ void showInput(){
 
 char *appendString(char* str1, char* str2){
 	char* newStr;
-	if( (newStr = malloc(strlen(str1) + strlen(str2))) != NULL){
-		newStr[0] = '\0';
-		strcat(newStr, str1);
-		strcat(newStr, str2);
+	int newSize = strlen(str1) + strlen(str2) + 1;
+
+	if( (newStr = calloc(newSize, sizeof(char))) != NULL){
+		snprintf(newStr, newSize, "%s%s",str1 , str2);
 	}
+
+	free(str1);
+	free(str2);
 
 	return newStr;
 }

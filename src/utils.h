@@ -63,7 +63,7 @@ struct winsize{
 int getch();
 void showInput();
 struct winsize getWindowSize();
-char *appendString(char* str1, char* str2);
+char* appendString(char* str1, char* str2);
 
 
 #endif
