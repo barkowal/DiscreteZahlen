@@ -12,9 +12,6 @@ char extEucTitle[] = "\
 |________/ \\______/ |__/  \\__/|__/|__/ \\_______/ \\_______/|_______/ \n\
 ";
 
-char* extEucGetTitle(){
-	return extEucTitle;
-}
 
 struct Menu* extEucMenu(){
 	const int size = 2;
@@ -22,11 +19,13 @@ struct Menu* extEucMenu(){
 		"( )WPISZ WARTOSC",
 		"( )POWROT"
 	};
-	struct Menu* menu = createMenu(menu, size, options);
+	char* title = extEucTitle;
+	struct Menu* menu = createMenu(menu, size, title, options);
+	menu->methods->whatScene = &extEucWhatScene;
 	return menu;
 }
 
-int extEucWhatScene(int option){
+int extEucWhatScene(Menu* self, int option){
 	switch(option){
 		case 0:
 				calculateExtEuc();

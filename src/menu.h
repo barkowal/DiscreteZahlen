@@ -4,15 +4,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct MenuVtable MenuVtable;
+typedef struct Menu Menu;
+
+struct MenuVtable{
+	int (*showMenu)(Menu* self);
+	void (*showMenuItem)(Menu* self, int option);
+	void (*destroyMenu)(Menu** self);
+	char* (*getTitle)(Menu* self);
+	int (*whatScene)(Menu* self, int option);
+};
+
 struct Menu{
 	int size;
 	int currentOption;
+	MenuVtable* methods;
+	char* title;
 	char* options[];
 };
 
-struct Menu* createMenu(struct Menu* menu, int size, char* options[]);	
-int showMenu(struct Menu*);
-void showMenuItem(struct Menu*, int option);
-void destroyMenu(struct Menu** menu);
+Menu* createMenu(Menu* self, int size, char* title, char* options[]);	
+MenuVtable* createVtable();
+char* getTitle(Menu* self);
+int showMenu(Menu* self);
+void showMenuItem(Menu* self, int option);
+int nextScene(Menu* self, int option);
+void destroyMenu(Menu** self);
 
 #endif

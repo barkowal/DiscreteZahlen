@@ -4,10 +4,8 @@
 #include "../menu.h"
 #include "scenes.h"
 
-struct Menu* mainMenu();
+Menu* mainMenu();
 
-char* mainGetTitle();
-
-int mainWhatScene(int option);
+int mainWhatScene(Menu* self, int option);
 
 #endif

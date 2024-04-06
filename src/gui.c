@@ -2,10 +2,9 @@
 
 int win_row = 0;
 int currentScene = MAIN_SCENE;
-struct Menu* menu;
+Menu* menu;
 
 
- 	
 int gui(){
 	menu = mainMenu();
 	char key = ' ';
@@ -24,31 +23,20 @@ int gui(){
 		changeLine(key, &option);
 	}
 
+	menu->methods->whatScene(menu, 0);
+
+	if(menu != NULL){
+		destroyMenu(&menu);
+	}
 
 	clearScreen();
 	return EXIT_OK;
 }
 
 
-
-//TODO polymorphism instead of that blasphemy
 int whatScene(int option){
 	int scene = 0;
-
-	switch(currentScene){
-		case MAIN_SCENE: 
-					scene = mainWhatScene(option);
-					break;
-		case NWD_SCENE:
-					scene = nwdWhatScene(option);
-					break;
-		case EXTENDEDEUC_SCENE:
-					scene = extEucWhatScene(option);
-					break;
-		case EXIT:
-					scene = EXIT;
-					break;
-	}
+	scene = menu->methods->whatScene(menu, option);
 
 	return scene;
 }
@@ -77,18 +65,10 @@ void changeScene(int* option){
 
 }
 
+
 void showTitle( int sceneNB ){
-	switch(sceneNB){
-		case MAIN_SCENE:
-			printTitle( mainGetTitle(), strlen(mainGetTitle()) );
-		break;
-		case NWD_SCENE:
-			printTitle( nwdGetTitle(), strlen(nwdGetTitle()) );
-		break;
-		case EXTENDEDEUC_SCENE:
-			printTitle( extEucGetTitle(), strlen(extEucGetTitle()) );
-		break;
-	}
+	char* title = menu->methods->getTitle(menu);
+	printTitle(title, strlen(title));
 }
 
 

@@ -7,11 +7,9 @@
 #include "../math/extendedEuc.h"
 
 
-char* extEucGetTitle();
+Menu* extEucMenu();
 
-struct Menu* extEucMenu();
-
-int extEucWhatScene(int option);
+int extEucWhatScene(Menu* self, int option);
 
 void calculateExtEuc();
 

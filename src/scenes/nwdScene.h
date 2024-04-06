@@ -6,9 +6,8 @@
 #include "scenes.h"
 #include "../math/nwd_nww.h"
 
-char* nwdGetTitle();
-struct Menu* nwdMenu();
-int nwdWhatScene(int option);
+Menu* nwdMenu();
+int nwdWhatScene(Menu* self, int option);
 void calculateNWD();
 void showFactorization();
 

@@ -12,24 +12,23 @@ char menuString[] = " \
 |__/     |__/|________/|__/  \\__/ \\______/ \n";
 
 
-char* mainGetTitle(){
-	return menuString;
-}
-
-
-struct Menu* mainMenu(){
+Menu* mainMenu(){
 	const int size = 3;
 	char* options[3] = {
 		"( )POLICZ NWD ORAZ NWW Z ROZKLADEM NA CZYNNIKI PIERWSZE",
 		"( )POLICZ NWD ROZSZERZONYM ALGORYTMEM EUKLIDESA",
 		"( )WYJDZ"
 	};
-	struct Menu* menu = createMenu(menu, size, options);
+	Menu* menu;
+	char* title = menuString;
+	menu = createMenu(menu, size, title, options);
+	menu->methods->whatScene = &mainWhatScene;
+
 	return menu;
 }
 
 
-int mainWhatScene(int option){
+int mainWhatScene(Menu* main, int option){
 	switch(option){
 		case 0:	return NWD_SCENE;
 		case 1: return EXTENDEDEUC_SCENE;

@@ -11,23 +11,22 @@ char menuNWD[] = " \
 |__/  \\__/|__/     \\__/|_______/|__/      |__/  \\__/|__/     \\__/|__/     \\__/\n\
 ";
 
-char* nwdGetTitle(){
-	return menuNWD;
-}
 
-struct Menu* nwdMenu(){
+Menu* nwdMenu(){
 	const int size = 3;	
 	char *options[3] = {
 		"( )WPISZ WARTOSCI ABY POLICZYC NWD, NWW",
 		"( )ROZKLAD LICZBY NA CZYNNIKI PIERWSZE",
 		"( )POWROT"
 	};
-	struct Menu* menu = createMenu(menu, size, options);
+	char* title = menuNWD;
+	Menu* menu = createMenu(menu, size, title, options);
+	menu->methods->whatScene = &nwdWhatScene;
 	return menu;
 }
 
 
-int nwdWhatScene(int option){
+int nwdWhatScene(Menu* self, int option){
 	switch(option){
 		case 0:
 				calculateNWD();
