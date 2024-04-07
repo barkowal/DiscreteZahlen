@@ -13,6 +13,7 @@ struct MenuVtable{
 	void (*destroyMenu)(Menu** self);
 	char* (*getTitle)(Menu* self);
 	int (*whatScene)(Menu* self, int option);
+	Menu* (*changeMenu)(Menu* self, int option);
 };
 
 struct Menu{
@@ -29,6 +30,7 @@ char* getTitle(Menu* self);
 int showMenu(Menu* self);
 void showMenuItem(Menu* self, int option);
 int nextScene(Menu* self, int option);
+Menu* changeMenu(Menu* self, int optiion);
 void destroyMenu(Menu** self);
 
 #endif

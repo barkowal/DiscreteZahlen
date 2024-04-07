@@ -8,4 +8,5 @@ Menu* mainMenu();
 
 int mainWhatScene(Menu* self, int option);
 
+Menu* mainChangeMenu(Menu* self, int option);
 #endif

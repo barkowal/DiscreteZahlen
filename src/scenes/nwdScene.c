@@ -22,6 +22,7 @@ Menu* nwdMenu(){
 	char* title = menuNWD;
 	Menu* menu = createMenu(menu, size, title, options);
 	menu->methods->whatScene = &nwdWhatScene;
+	menu->methods->changeMenu = &nwdChangeMenu;
 	return menu;
 }
 
@@ -41,6 +42,26 @@ int nwdWhatScene(Menu* self, int option){
 		default:
 				return MAIN_SCENE;
 	}
+}
+
+
+Menu* nwdChangeMenu(Menu* self, int option){
+	Menu* temp;
+	switch(option){
+		case 0:
+				temp = nwdMenu();
+				break;
+		case 1:
+				temp = nwdMenu();
+				break;
+		case 2:
+				temp = mainMenu();
+				break;
+		default:
+				temp = mainMenu();
+				break;
+	}
+	return temp;
 }
 
 

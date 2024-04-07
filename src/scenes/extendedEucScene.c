@@ -22,6 +22,7 @@ struct Menu* extEucMenu(){
 	char* title = extEucTitle;
 	struct Menu* menu = createMenu(menu, size, title, options);
 	menu->methods->whatScene = &extEucWhatScene;
+	menu->methods->changeMenu = &extEucChangeMenu;
 	return menu;
 }
 
@@ -37,6 +38,23 @@ int extEucWhatScene(Menu* self, int option){
 	}
 }
 
+
+
+Menu* extEucChangeMenu(Menu* self, int option){
+	Menu* temp;
+	switch(option){
+		case 0:
+				temp = extEucMenu();
+				break;
+		case 1:
+				temp = mainMenu();
+				break;
+		default:
+				temp = mainMenu();
+				break;
+	}
+	return temp;
+}
 
 void calculateExtEuc(){
 	int a, b;

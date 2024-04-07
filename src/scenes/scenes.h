@@ -6,5 +6,10 @@
 #define NWD_SCENE 2
 #define EXTENDEDEUC_SCENE 3
 
+#include "../menu.h"
+
+Menu* mainMenu();
+Menu* nwdMenu();
+Menu* extEucMenu();
 
 #endif

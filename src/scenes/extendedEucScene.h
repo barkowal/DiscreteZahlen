@@ -11,6 +11,8 @@ Menu* extEucMenu();
 
 int extEucWhatScene(Menu* self, int option);
 
+Menu* extEucChangeMenu(Menu* self, int option);
+
 void calculateExtEuc();
 
 #endif

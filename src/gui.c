@@ -23,8 +23,6 @@ int gui(){
 		changeLine(key, &option);
 	}
 
-	menu->methods->whatScene(menu, 0);
-
 	if(menu != NULL){
 		destroyMenu(&menu);
 	}
@@ -44,25 +42,12 @@ int whatScene(int option){
 
 void changeScene(int* option){
 	int scene = whatScene(*option);
+	Menu* temp = menu->methods->changeMenu(menu, *option);
+
 	destroyMenu(&menu);
 
-	switch(scene){
-		case MAIN_SCENE: 
-					menu = mainMenu();
-					break;
-		case NWD_SCENE:
-					menu = nwdMenu();
-					break;
-		case EXTENDEDEUC_SCENE:
-					menu = extEucMenu();
-					break;
-		case EXIT:
-					menu = mainMenu();
-					break;
-	}
-
+	menu = temp;
 	currentScene = scene;
-
 }
 
 

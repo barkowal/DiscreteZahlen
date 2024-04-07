@@ -35,6 +35,7 @@ MenuVtable* createVtable(){
 	vtable->whatScene = &nextScene;
 	vtable->destroyMenu = &destroyMenu;
 	vtable->showMenuItem = &showMenuItem;
+	vtable->changeMenu = &changeMenu;
 
 	return vtable;
 }
@@ -67,6 +68,11 @@ int nextScene(Menu* self, int option){
 	return 1;
 }
 
+
+Menu* changeMenu(Menu* self, int option){
+	Menu* temp = NULL;
+	return temp;
+}
 
 void destroyMenu(Menu** menu){
 	int i;

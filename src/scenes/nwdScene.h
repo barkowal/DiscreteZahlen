@@ -8,6 +8,7 @@
 
 Menu* nwdMenu();
 int nwdWhatScene(Menu* self, int option);
+Menu* nwdChangeMenu(Menu* self, int option);
 void calculateNWD();
 void showFactorization();
 
