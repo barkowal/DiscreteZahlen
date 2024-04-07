@@ -23,11 +23,11 @@ int nwd(int a, int b){
 	return a;
 }
 
-int ext_nwd( int a, int b ){
+int ext_nwd( int a, int b, int* x, int* y){
 	int rest;
 	int divided;
-	int x = 1;
-	int y = 0;
+	*x = 1;
+	*y = 0;
 	int s = 0;
 	int r = 1;
 	int sp;
@@ -38,10 +38,10 @@ int ext_nwd( int a, int b ){
 		divided = divide(a,b);
 		a = b;
 		b = rest;
-		sp = x - divided * s;
-		rp = y - divided * r;
-		x = s;
-		y = r;
+		sp = *x - divided * s;
+		rp = *y - divided * r;
+		*x = s;
+		*y = r;
 		s = sp;
 		r = rp;
 	}

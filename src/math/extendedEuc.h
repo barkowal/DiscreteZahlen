@@ -13,7 +13,7 @@ struct eucResult{
 int divide(int, int); 
 int mod(int, int);
 int nwd(int, int);
-int ext_nwd(int, int);
+int ext_nwd(int, int, int*, int*);
 struct eucResult ext_nwd_table(int ,int);
 int nwd_rec(int, int);
 

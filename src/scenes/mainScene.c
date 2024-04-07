@@ -13,10 +13,11 @@ char menuString[] = " \
 
 
 Menu* mainMenu(){
-	const int size = 3;
-	char* options[3] = {
+	const int size = 4;
+	char* options[4] = {
 		"( )POLICZ NWD ORAZ NWW Z ROZKLADEM NA CZYNNIKI PIERWSZE",
 		"( )POLICZ NWD ROZSZERZONYM ALGORYTMEM EUKLIDESA",
+		"( )KONGRUENCJE",
 		"( )WYJDZ"
 	};
 	Menu* menu;
@@ -33,7 +34,8 @@ int mainWhatScene(Menu* main, int option){
 	switch(option){
 		case 0:	return NWD_SCENE;
 		case 1: return EXTENDEDEUC_SCENE;
-		case 2: return EXIT;
+		case 2: return CONGRUENCES_SCENE;
+		case 3: return EXIT;
 		default: return EXIT;
 	}
 }
@@ -49,6 +51,9 @@ Menu* mainChangeMenu(Menu* self, int option){
 				temp = extEucMenu();
 				break;
 		case 2: 
+				temp = congruenceMenu();
+				break;
+		case 3: 
 				temp = mainMenu();
 				break;
 		default: 
