@@ -17,6 +17,7 @@
 #define moveCursor(x, y) printf("\033[%d;%dH", x, y)
 #define colorLine(fg,bg) printf("\033[%d;%dm",fg,bg)
 
+
 #ifdef _WIN32
 
 #include <windows.h>
@@ -26,6 +27,7 @@
 #define DOWN_ARROW 80
 #define RIGHT_ARROW 77
 #define LEFT_ARROW 75
+#define ESC 27
 
 #define clearScreen() system("cls")
 //#define colorLine(fg,bg) SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), bg*16 + fg);
@@ -36,14 +38,17 @@
 
 #include <sys/ioctl.h>
 #include <termios.h>
+#include <unistd.h>
 
 // #define UP_ARROW '\\033A'
 // #define DOWN_ARROW '\\033B'
 #define UP_ARROW 'A'
 #define DOWN_ARROW 'B'
 
-#define RIGHT_ARROW 77
-#define LEFT_ARROW 75
+#define RIGHT_ARROW 'C'
+#define LEFT_ARROW 'D'
+
+#define ESC 'Q'
 
 
 #define clearScreen() printf("\033[H\033[J")
