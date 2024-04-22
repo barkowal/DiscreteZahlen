@@ -24,6 +24,7 @@ struct factor{
 };
 
 
+int fastPow(int, int);
 int isPrime(int number);
 int getNextPrime(int prevprime);
 struct factor calculateNWD_NWW(int a, int b);

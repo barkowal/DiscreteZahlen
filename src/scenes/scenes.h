@@ -7,6 +7,8 @@
 #define EXTENDEDEUC_SCENE 3
 #define CONGRUENCES_SCENE 4
 #define SUNZITHEOREM_SCENE 5
+#define OTHER_SCENE 6
+#define FACTORIAL_SCENE 7
 
 #include "../menu.h"
 
@@ -15,5 +17,7 @@ Menu* nwdMenu();
 Menu* extEucMenu();
 Menu* congruenceMenu();
 Menu* sunziTheoremMenu();
+Menu* otherMenu();
+Menu* factorialMenu();
 
 #endif

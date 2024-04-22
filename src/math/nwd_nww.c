@@ -1,6 +1,20 @@
 #include "nwd_nww.h"
 
 
+int fastPow(int base, int exp){
+	int result = 1;
+
+	while(exp){
+		if(exp & 1)
+			result *= base;
+		exp >>= 1;
+		base *= base;
+	}
+
+	return result;
+}
+
+
 int isPrime(int number)
 {
 	int result = TRUE;
@@ -64,8 +78,8 @@ struct factor calculateNWD_NWW(int a, int b)
 				break;
 		}
 
-		result.nwd *= pow(prime,fmin(alfa,beta));
-		result.nww *= pow(prime,fmax(alfa,beta));
+		result.nwd *= fastPow(prime,fmin(alfa,beta));
+		result.nww *= fastPow(prime,fmax(alfa,beta));
 
 	
 		if (alfa || beta){
