@@ -71,7 +71,7 @@ int _kbhit()
 
 
 #ifdef _WIN32
-
+#define random rand
 
 struct winsize getWindowSize(){
 	struct winsize window;
