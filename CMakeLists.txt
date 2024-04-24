@@ -7,6 +7,8 @@ FILE(GLOB SOURCE_FILES src/*.c
 src/scenes/*.c 
 src/scenes/congruence/*.c
 src/scenes/other/*.c
+src/scenes/games/*.c
+src/scenes/games/snake/*.c
 src/math/*.c)
 
 add_executable(main ${SOURCE_FILES} )

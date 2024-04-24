@@ -3,8 +3,9 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
-void sieve(int, int*);
+int* sieve(int);
 void calculateFactorial(int);
 
 #endif

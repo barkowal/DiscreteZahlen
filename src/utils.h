@@ -50,6 +50,9 @@
 
 #define ESC 'Q'
 
+#define NB_ENABLE 1
+#define NB_DISABLE 0
+
 
 #define clearScreen() printf("\033[H\033[J")
 
@@ -69,6 +72,8 @@ int getch();
 void showInput();
 struct winsize getWindowSize();
 char* appendString(char* str1, char* str2);
+void nonblock(int state);
+int _kbhit();
 
 
 #endif

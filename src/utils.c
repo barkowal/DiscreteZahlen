@@ -2,6 +2,8 @@
 
 
 #ifdef linux
+
+
 struct winsize getWindowSize(){
 	struct winsize window;
 
@@ -24,6 +26,47 @@ int getch()
     tcsetattr( STDIN_FILENO, TCSANOW, &oldattr );
     return ch;
 }
+
+
+
+void nonblock(int state)
+{
+    struct termios ttystate;
+
+    tcgetattr(STDIN_FILENO, &ttystate);
+
+    if (state==NB_ENABLE)
+    {
+        ttystate.c_lflag &= ~(ICANON | ECHO);
+    }
+    else if (state==NB_DISABLE)
+    {
+        ttystate.c_lflag |= (ICANON | ECHO);
+    }
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
+}
+
+
+int _kbhit()
+{
+    struct termios oldAttr, newAttr;
+    tcgetattr(STDIN_FILENO, &oldAttr);
+
+    newAttr = oldAttr;
+    newAttr.c_lflag &= ~( ICANON | ECHO );
+    tcsetattr(STDIN_FILENO, TCSANOW, &newAttr);
+
+    setbuf(stdin, NULL);
+    int byteswaiting;
+    ioctl(STDIN_FILENO, FIONREAD, &byteswaiting);
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldAttr);
+
+    return byteswaiting;
+}
+
+
 #endif
 
 

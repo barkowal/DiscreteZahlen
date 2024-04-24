@@ -9,6 +9,7 @@
 #define SUNZITHEOREM_SCENE 5
 #define OTHER_SCENE 6
 #define FACTORIAL_SCENE 7
+#define GAMES_SCENE 8
 
 #include "../menu.h"
 
@@ -19,5 +20,6 @@ Menu* congruenceMenu();
 Menu* sunziTheoremMenu();
 Menu* otherMenu();
 Menu* factorialMenu();
+Menu* gameMenu();
 
 #endif
