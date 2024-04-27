@@ -4,7 +4,7 @@
 #include "scenes.h"
 #include "../menu.h"
 #include "../utils.h"
-#include "../math/extendedEuc.h"
+#include "extendedEuc.h"
 
 
 Menu* extEucMenu();

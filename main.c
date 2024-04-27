@@ -1,4 +1,4 @@
-#include "gui.h"
+#include "src/gui.h"
 #define EXIT_OK 0
 
 int main(){
