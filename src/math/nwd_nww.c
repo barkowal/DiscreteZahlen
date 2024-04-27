@@ -17,6 +17,8 @@ int fastPow(int base, int exp){
 
 int isPrime(int number)
 {
+	if(number < 2) return FALSE;
+
 	int result = TRUE;
 	int i;
 	for(i = 2; i <= (int)sqrt((double)number); i ++)
@@ -31,7 +33,7 @@ int isPrime(int number)
 int getNextPrime(int prevprime)
 {
 	int i;
-	for(i = prevprime+1; /* !isPrime(i) */;i ++)
+	for(i = prevprime + 1; /* !isPrime(i) */;i ++)
 		if (isPrime(i))
 		{
 			break;

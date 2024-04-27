@@ -5,7 +5,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../utils.h"
+#include "../../utils.h"
  
 #define TRUE 1
 #define FALSE 0

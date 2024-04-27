@@ -4,7 +4,7 @@
 #include "../scenes.h"
 #include "../../menu.h"
 #include "../../utils.h"
-#include "../../math/sunziTheorem.h"
+#include "sunziTheorem.h"
 
 
 Menu* sunziTheoremMenu();

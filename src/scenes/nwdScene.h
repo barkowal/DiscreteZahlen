@@ -4,7 +4,7 @@
 #include "../menu.h"
 #include "../utils.h"
 #include "scenes.h"
-#include "../math/nwd_nww.h"
+#include "nwd_nww.h"
 
 Menu* nwdMenu();
 int nwdWhatScene(Menu* self, int option);

@@ -3,7 +3,7 @@
 
 #include "../../menu.h"
 #include "../scenes.h"
-#include "../../math/factorial.h"
+#include "factorial.h"
 #include "../../utils.h"
 
 Menu* factorialMenu();
