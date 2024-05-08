@@ -30,6 +30,9 @@ find_library(MATH_LIBRARY m)
 if(MATH_LIBRARY)
 	target_link_libraries(main PUBLIC ${MATH_LIBRARY})
 endif()
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/scenes/games/snake/pytania.txt
+    ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 #MAIN
 
 

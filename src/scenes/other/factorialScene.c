@@ -67,7 +67,7 @@ void showFactorial(){
 	scanf("%d",&n);
 
 	moveDown(1);
-	showInput();
+	showInput(.colNb = 8, .rowNb = 5);
 	calculateFactorial(n);
 
 	getchar();

@@ -1,6 +1,7 @@
 #include "snakeGame.h"
 
 char screenObjects[WIN_X][WIN_Y];
+Point answers[ANSWER_NB];
 
 char* gameOver = "\
   /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$$$      \n\
@@ -73,6 +74,7 @@ int snakeGame(){
 		usleep(1000 * 100);
 	}
 
+
 	nonblock(NB_DISABLE);
 
 	printf("\x1b[?25h");
@@ -88,18 +90,34 @@ int snakeGame(){
 
 void spawnPoints(){
 	srand(time(NULL));
-	char primes[4] = {'2','3','5','7'};
-	char numbers[4] = {'4','6','8','9'};
+	char symbols[5] = {'A', 'B', 'C', 'D', 'H'};
+	char question[MAX_BUFFER_LEN];
+	char correctAnswer;
 	Point rndPos;
-	int rndNB = random()%4;
-	rndPos.x = random()%WIN_X;
-	rndPos.y = random()%WIN_Y;
-	drawPoint(rndPos, primes[rndNB]);
+	
+	clearAnswers();
+	getQuestion(question, &correctAnswer);
+	printQuestion(question);
 
-	rndNB = random()%5;
-	rndPos.x = random()%WIN_X;
-	rndPos.y = random()%WIN_Y;
-	drawPoint(rndPos, numbers[rndNB]);
+	int i;
+	for(i=0; i<5; i++){
+		rndPos.x = random()%WIN_X;
+		rndPos.y = random()%WIN_Y;
+		answers[i] = rndPos;
+
+		drawPoint(rndPos, symbols[i]);
+
+		if( symbols[i] == correctAnswer )
+			answers[ANSWER_NB-1] = rndPos;
+	}
+}
+
+
+void clearAnswers(){
+	int i;
+	for(i=0; i<ANSWER_NB; i++){
+		clearPoint(answers[i]);
+	}
 }
 
 
@@ -107,21 +125,21 @@ void moveSnake(Snake* snake){
 	moveTail(*snake);
 	int x = snake->head.x;
 	int y = snake->head.y;
-
-	switch(snake->direction){
-		case 1: 
+	int dir = snake->direction + 3;
+	switch(dir){
+		case 4: 
 						y--;
 						if(y < 0 ) y = WIN_Y ;
 						break;
-		case -1:
+		case 2:
 						y++;
 						if(y > WIN_Y ) y = 0;
 						break;
-		case 2:
+		case 5:
 						x++;
 						if(x > WIN_X ) x = 0;
 						break;
-		case -2:
+		case 1:
 						x--;
 						if(x < 0 ) x = WIN_X ;
 						break;
@@ -194,24 +212,20 @@ void clearPoint(Point p){
 int checkCollide(Point p){
 	char collisionObject = screenObjects[p.x][p.y];
 
-	char primes[4] = {'2','3','5','7'};
-	char numbers[4] = {'4','6','8','9'};
-
-	if( collisionObject == '#'){
-		// printf("SNAKE EATER");
-		return 2 ;
+	if( p.x == answers[ANSWER_NB - 1].x && 
+		p.y == answers[ANSWER_NB - 1].y ){
+		return 1;
 	}
 
-	int i;
-	for( i=0; i<4; i++){
-		if( collisionObject == primes[i] ){
-			return 1;
-		}
-		if( collisionObject == numbers[i] ){
-			return 2;
-		}
+	switch( collisionObject ){
+		case 'A': return 2;
+		case 'B': return 2;
+		case 'C': return 2;
+		case 'D': return 2;
+		case '#': return 2;
+		case 'H': changeAnswerColors(); return 0;
+		default:  return 0;
 	}
-	return 0;
 }
 
 
@@ -242,4 +256,27 @@ void drawRectangle(int x, int y){
 
 	printf("\n");
 	
+}
+
+
+void printQuestion(char* question){
+	moveCursor(WIN_Y+5, 0);
+	showInput();
+
+	printf("%s",question);
+}
+
+
+void changeAnswerColors(){
+	Point correctPoint = answers[ANSWER_NB-1];
+	char symbols[ANSWER_NB] = {'A', 'B', 'C', 'D'};
+	int i;
+	changeCol_RED();
+	for(i=0; i<ANSWER_NB-2; i++){
+		drawPoint(answers[i], symbols[i]);
+	}
+	changeCol_GREEN();
+	
+	drawPoint(answers[ANSWER_NB-1], screenObjects[correctPoint.x][correctPoint.y]);
+	changeCol_DEFAULT();
 }

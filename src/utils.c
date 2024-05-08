@@ -101,38 +101,43 @@ void nonblock(int state)
 #endif
 
 #ifdef linux
-void showInput(){
+void (showInput)(struct showInput boxSize){
 	struct winsize window = getWindowSize();
-	int width = window.ws_col * 0.8;
+	int width = boxSize.colNb? window.ws_col * ((double)(boxSize.colNb)/10) :  window.ws_col * 0.8;
+	int height = boxSize.rowNb? boxSize.rowNb :  1;
 	int i;
 	
 	printf("\n");
 	moveUp(1);
 	printf("┌\n");
-	printf("│\n");
+	for(i=0; i<height; i++)
+		printf("│\n");
 	printf("└");
-	moveUp(2);
+	moveUp(height + 1);
 
 	for(i=0; i<width; i++){
 		printf("─");
 		moveDown(1);
 		moveLeft(1);
 		printf(" ");
-		moveDown(1);
+		moveUp(1);
+		moveDown(height + 1);
 		moveLeft(1);
 		printf("─");
-		moveUp(2);
+		moveUp(height + 1);
 	}
-
+	
 	printf("┐");
 	moveDown(1);
 	moveLeft(1);
-	printf("│");
-	moveDown(1);
-	moveLeft(1);
+	for(i=0; i<height; i++){
+		printf("│");
+		moveDown(1);
+		moveLeft(1);
+	}
 	printf("┘");
 
-	moveUp(1);
+	moveUp(height);
 	moveLeft(width);
 }
 #endif

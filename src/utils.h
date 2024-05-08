@@ -16,6 +16,9 @@
 #define moveLeft(value) printf("\033[%dD",value)
 #define moveCursor(x, y) printf("\033[%d;%dH", x, y)
 #define colorLine(fg,bg) printf("\033[%d;%dm",fg,bg)
+#define changeCol_RED() printf("\033[31m")
+#define changeCol_GREEN() printf("\033[32m") 
+#define changeCol_DEFAULT() printf("\033[37;40m")
 
 #define NB_ENABLE 1
 #define NB_DISABLE 0
@@ -70,8 +73,12 @@ struct winsize{
 };
 #endif
 
+struct showInput {int colNb; int rowNb;} ;
+#define showInput(...) showInput( (struct showInput){.colNb = 0, .rowNb = 0, __VA_ARGS__} )
+
 int getch();
-void showInput();
+// void showInput();
+void (showInput)(struct showInput tab);
 struct winsize getWindowSize();
 char* appendString(char* str1, char* str2);
 void nonblock(int state);

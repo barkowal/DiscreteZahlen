@@ -26,6 +26,7 @@ int* sieve(const int n){
 
 void calculateFactorial(const int n){
 	int* primes = sieve(n+1);
+	int lineWidth = 0;
 	int i;
 
 	for(i=2; i <= n; i++){
@@ -37,6 +38,13 @@ void calculateFactorial(const int n){
 				divider *= i;
 			}
 			printf(" [ %d ^ %d ]", i, exp);
+			if(lineWidth >= 100){
+				lineWidth = 0;
+				printf("\n");
+				printf("\033[1C");
+				
+			}
+			lineWidth += 10;
 		}
 	}
 

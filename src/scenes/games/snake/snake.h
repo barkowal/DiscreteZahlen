@@ -23,9 +23,6 @@ typedef struct{
 }Snake;
 
 
-#define WIN_X 80
-#define WIN_Y 20
-
 void changeSnakeDirection(Snake* snake, char);
 void addTail(Snake* snake);
 void killSnake(Snake* snake);

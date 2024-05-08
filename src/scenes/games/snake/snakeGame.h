@@ -1,7 +1,13 @@
 #ifndef SNAKEGAME_H
 #define SNAKEGAME_H
 
+
+#define WIN_X 80
+#define WIN_Y 20
+#define ANSWER_NB 6
+
 #include "snake.h"
+#include "dbOpener.h"
 #include "../../../utils.h"
 #include <time.h>
 
@@ -20,6 +26,9 @@ void moveTail(Snake snake);
 
 int checkCollide(Point p);
 void spawnPoints();
+void clearAnswers();
+void changeAnswerColors();
 
+void printQuestion(char* question);
 
 #endif
